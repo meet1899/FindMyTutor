@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-image: url('../static/images/background2.jpg');
+  }
+  .some{
+      text-align: center;
+      width:100%;
+      padding: 10px;
+      background-color:#ffffff;
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  .container1{
+    text-align: center;
+      width:100%;
+      padding: 10px;
+      background-color:#ffffff;
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+
+
+{% if profile %}
+
+    <div class="container text-center">
+        <div class="row">
+            <div class ="col-8">
+   
+    
+    <div class="container1">
+    {% if courses %}
+    <h3>Courses Provided</h3><br/>
+      {% for course in courses %}
+    <div class="alert alert-dark" role="alert">
+      <div class="container">
+        <div class="row">
+          <div class="col-1">
+        {% if course.course_image %}
+        <img src="{{course.course_image.url}}" width =50 height=50 class="rounded-circle" alt = "{{profile.user.username}}">
+        {% else %}
+        <img src = "{% static 'images/default1.png' %}" width =50 height=50 class="rounded-circle" alt = "{{profile.user.username}}">
+        {% endif %}
+          </div>
+
+          <div class="col-10">
+            <strong> {{course.course_name}} </strong>
+      <!-- <strong>{{ course.des }}</strong><br/> --><br/>
+      <small class="text-muted">
+          {{course.created_at}} by 
+          @{{course.user.username}}
+          &nbsp;&nbsp;
+          </small>
+          {% if request.user.username == profile.user.username %}
+           &nbsp;&nbsp;
+           <a href="{% url 'delete_course' course.id %}"><i class="fas fa-trash-alt" style="color:rgb(106, 106, 106)"></i></a>
+           &nbsp;&nbsp;
+           <a href="{% url 'edit_course' course.id %}"><i class="fa fa-edit" style="color:rgb(106, 106, 106)"></i></a> 
+           &nbsp;&nbsp;
+           {% endif %}
+           <a href="{% url 'course_show' course.id %}"><i class="fa-solid fa-share" style="color:rgb(106, 106, 106)"></i></a>
+
+      </div>
+
+      <br/><br/></div></div></div>  
+      {% endfor %}
+
+    {% endif %} 
+  </div>
+    {% if request.user.username == profile.user.username %}
+    
+    {% for question in questions %}
+    <br/>
+    <div class="card text-center">
+      <div class="card-header">
+        Question
+      </div>
+      <div class="card-body">
+        <p class="card-text"> {{question.question}} </p>
+        
+      </div>
+      <div class="card-footer text-body-secondary">
+          {{question.alt_email}} at  {{question.created_at}}
+          &nbsp;&nbsp;
+           <a href="{% url 'delete_question' question.id %}"><i class="fas fa-trash-alt" style="color:rgb(106, 106, 106)"></i></a>
+      </div>
+    </div>
+    {% endfor %}
+    {% for hire_req in hire_reqs %}
+    <br/>
+    <div class="card text-center">
+      <div class="card-header">
+        Hire Request
+      </div>
+      <div class="card-body">
+        <p class="card-text"> {{hire_req.Request}} </p>
+        
+      </div>
+      <div class="card-footer text-body-secondary">
+          {{hire_req.your_email}} at  {{hire_req.created_at}}
+          &nbsp;&nbsp;
+           <a href="{% url 'delete_hirereq' hire_req.id %}"><i class="fas fa-trash-alt" style="color:rgb(106, 106, 106)"></i></a>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+
+    <div class ="col-4">
+      
+      <div class="some" >
+        <h1 style="text-align: center; color: #000000;">{{profile.user.username}}</h1>
+<br/>
+      {% if profile.profile_image %}
+      <a href="{{profile.profile_image.url}}">
+      <img src = "{{profile.profile_image.url}}" width =180 height=150 class="rounded">
+      </a>
+      <br/>
+      {% endif %}
+      <br/>
+        {% if profile.homepage_link %}
+        <a href="{{profile.homepage_link}}" target="new">
+          <i class="fas fa-link" style="color: gray;"></i></a>
+        {% endif %}
+        &nbsp;&nbsp;
+        {% if profile.facebook_link %}
+        <a href="{{profile.facebook_link}}" target="new">
+          <i class="fa-brands fa-facebook-f" style="color: gray;"></i></a>
+        {% endif %}
+        &nbsp;&nbsp;
+        {% if profile.instagram_link %}
+        <a href="{{profile.instagram_link}}" target="new">
+          <i class="fa-brands fa-instagram" style="color: gray;"></i></a>
+        {% endif %}
+        &nbsp;&nbsp;
+        {% if profile.linkedin_link %}
+        <a href="{{profile.linkedin_link}}" target="new">
+          <i class="fa-brands fa-linkedin-in" style="color: gray;"></i></a>
+        {% endif %}
+        &nbsp;&nbsp;
+        <br/><br/>
+        <strong> {{profile.tutor_field}} </strong><br/>
+        {% if profile.profile_bio %}
+          <p align = "justify"> 
+            {{profile.profile_bio}}
+          </p>
+        {% endif %}
+
+          <br/>
+          {% if request.user.id == profile.user.id and request.user.profile.is_tutor%}
+          <a href= "{% url 'update_user' %}" class = "btn btn-outline-secondary">Update Profile</a>&nbsp;&nbsp;&nbsp;
+          <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#collapse0" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Upload Course
+          </a>
+          <div class="collapse" id="collapse0">
+          <div class="card card-body">
+              
+          <div class="card-header">
+            Upload A New Course!!
+          </div>
+          <div class="card-body">
+            <br/>
+          <form method="POST" action="" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ course_form.as_p}}
+              <button type="submit" class="btn btn-outline-secondary">Upload Course!</button>
+            </form>
+          </div>
+          </div>
+          </div>
+
+          {% endif %}
+          {% if request.user.id != profile.user.id %}
+          <p class="d-inline-flex gap-1">
+            <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+              Ask a question
+            </a>&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapseExample">
+              Hire
+            </a>
+          </p>
+          <div class="collapse" id="collapse">
+            <div class="card card-body">
+              
+              <br/>
+          <div class="card">
+            <div class="card-header">
+              Ask any Question!!
+            </div>
+            <div class="card-body">
+              <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{q_form.as_p}}
+                <button type="submit" class="btn btn-outline-secondary">Ask!</button>
+              </form>
+            </div>
+          </div>
+
+         
+          <br/><br/>
+            </div>
+          </div>
+
+          <div class="collapse" id="collapse2">
+            <div class="card card-body">
+
+          
+          <br/>
+          <div class="card">
+            <div class="card-header">
+              Hire the Tutor!!
+            </div>
+            <div class="card-body">
+              <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{hire_form.as_p}}
+                <button type="submit" class="btn btn-outline-secondary">Send Request!</button>
+              </form>
+            </div>
+          </div>
+
+          {% endif %}
+            </div>
+          </div>
+
+          
+          
+    </div>
+    </div>
+    </div>
+    </div>
+    <br/><br/><br/><br/><br/>
+
+{% endif %}
+
+{% endblock %}

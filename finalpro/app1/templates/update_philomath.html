@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .container {
+        width: max-content;
+        margin: 0 auto;
+        padding: 50px;
+        background-color:#edede9;
+        border-radius: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+  </style>
+
+<div class="col-md-6 offset-md-3">
+<div class="container">
+<h1 style="text-align: center;"> Change User Info!!</h1>
+<br/>
+
+<form method=POST action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    <br/>
+    <button type="submit" class="btn btn-secondary">Update Profile</button>
+    </form>
+    <br/><br/><br/><br/>
+</div>
+</div>
+
+{% endblock %}

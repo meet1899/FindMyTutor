@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+  <div class="container">
+  <header style="color: #9a7f7f;">
+    <h1>Unlock Your Potential with Personalized Tutoring</h1>
+    <p>Empower Your Learning Journey with Expert Tutors in Crypto, Astrology, and More!</p>
+    <button class="cta-button"><a class="nav-link" href="{% url 'login_user' %}">Get Started</a></button>
+  </header>
+
+
+    <section class="introduction">
+      <!-- <img src="{% static 'images/intro.jpg' %}" class="rounded float-start" alt="..."  height="300" width="450"> -->
+      <div class="introduction-text"> 
+        <h2>Are you a young adult eager to explore the worlds of Crypto, Astrology, and beyond?</h2>
+        <p>You're in the right place! Our platform connects you with knowledgeable and passionate tutors who are here to guide you on your unique learning journey.</p>
+      </div>
+    </section>
+  </div>
+
+  <br/>
+  <div class="container">
+    <img src="{% static 'images/whychoose.jpg' %}" class="rounded float-end" alt="..."  height="300" width="450">
+    <section class="why-choose-us">
+      <h2>Why Choose Us?</h2>
+      <div class="feature">
+        <i class="fas fa-graduation-cap feature-icon"></i>
+        <div class="feature-text">
+          <strong>Expert Tutors</strong><br>
+          Learn from the best in the industry, passionate about your success.
+        </div>
+      </div>
+      <div class="feature">
+        <i class="fas fa-clock feature-icon"></i>
+        <div class="feature-text">
+          <strong>Tailored Learning</strong><br>
+          Customized lesson plans that meet your needs and goals.
+        </div>
+      </div>
+      <div class="feature">
+        <i class="fas fa-lightbulb feature-icon"></i>
+        <div class="feature-text">
+          <strong>Wide Range of Topics</strong><br>
+          Master Crypto, explore Astrology, and more.
+        </div>
+      </div>
+    </section>
+  </div><br/>
+
+
+    
+    <div class="container">
+    <section class="how-it-works">
+      <h2>How It Works</h2>
+      <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-text">
+          <h3>Browse Tutors</h3>
+          <p>Explore our diverse pool of tutors and discover the perfect match for your learning goals.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-text">
+          <h3>Hire a Tutor</h3>
+          <p>Choose a convenient time, book a session, and start your personalized learning experience.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-text">
+          <h3>Learn and Grow</h3>
+          <p>Find your tutor, ask questions, and absorb knowledge. It's all about you and your progress.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+<br/>
+  <div class="container">
+    <section class="testimonials">
+      <h2>What Our Students Say</h2>
+      <div class="testimonial">
+        <p>
+          "Finding my Crypto tutor here has been a game-changer. I've gained insights I couldn't find anywhere else."
+        </p>          
+        <small style="text-align: end;">-John</small>
+        
+      </div>
+      <div class="testimonial">
+        <p>"Astrology has always intrigued me, and this platform connected me with a tutor who made it all click. Highly recommended!"</p>
+        <small style="text-align: end;">-Kaily</small>
+      </div>
+    </section>
+    </div>
+    <br/>
+    <div class="container">
+    <section class="get-started">
+      <h2>Ready to Get Started?</h2>
+      <p>Unlock your potential with the guidance of our expert tutors. Your learning adventure begins here.</p>
+      <button class="cta-button"><a class="nav-link" href="{% url 'login_user' %}">Find Your Tutor</a></button>
+    </section>
+    </div><br/>
+  
+  <footer>
+    <p>Contact us at: contact@email.com</p>
+    <p>&copy; 20XX Your Website Name. All rights reserved.</p>
+  </footer>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+ 
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      background-image: url('../static/images/background2.jpg');
+    }
+    .container {
+          text-align: center;
+          width: max-content;
+          margin: 0 auto;
+          padding: 50px;
+          background-color:#edede9;
+          border-radius: 30px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+  </style>
+      
+      <div class="container">
+      <h1 style="text-align: center;">Edit Course</h1>
+      {% if form %}
+        <br/><br/><br/>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <button type="submit" class="btn btn-outline-secondary">Edit course!</button>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+{% endblock %}

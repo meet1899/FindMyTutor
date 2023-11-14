@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      background-image: url('../static/images/background2.jpg');
+    }
+    .container {
+          width: max-content;
+          margin: 0 auto;
+          padding: 50px;
+          background-color:#edede9;
+          border-radius: 30px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+  </style>
+
+<div class="container" style="text-align: center;">
+<div class="card mb-3">
+  <div style="align-self: center;">
+  {% if course.course_image %}
+            <img src="{{course.course_image.url}}" width =180 height=150 class="rounded" alt = "{{profile.user.username}}">
+
+            {% else %}
+            <img src = "{% static 'images/default1.png' %}" class="card-img-top" alt = "{{profile.user.username}}">
+  {% endif %}
+</div>
+  <div class="card-body">
+    <h5 class="card-title" ><strong> {{course.course_name}} </strong></h5><br/>
+    <p class="card-text">{{ course.des }}</p>
+    <p class="card-text" style="text-align: end;"><small class="text-body-secondary">{{course.created_at}} by 
+      <a href ="{% url 'profile' course.user.id %}">@{{course.user.username|lower}}</a>
+      </small></p><br/>
+      <h6>CA$ &nbsp;{{course.course_price}}</h6>
+      
+      {% if request.user.is_authenticated %}
+      <p>
+        {{paypal_payment.render}}
+      </p>
+
+      {% else %}
+      <button type="button" class="btn btn-outline-secondary" disabled>Click here to for more info</button>
+      <small>Login to use this button</small>
+      {% endif %}
+    
+  </div>
+</div>
+</div>
+ 
+
+
+      {% if form %}
+      <div class ="col-4">
+        <br/><br/><br/>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <button type="submit" class="btn btn-primary">Meep!</button>
+          </form>
+          {% endif %}
+      </div>
+
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .container {
+      text-align: center;
+      width: 50%;
+      margin: 0 auto;
+      padding: 50px;
+      background-color:#edede9;
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+{% if user.is_authenticated %}
+<h1>You are already logged in!!</h1>
+{% else %}
+<div class="container">
+<div class="col-md-6 offset-md-3" style="align-items: center;">
+  
+  <img src="{% static 'images/mainicon2.png' %}" class="rounded-circle" alt="..."  height="70" width="70">
+  <br/>
+
+<h1 style="color: rgb(84, 84, 84);">
+  Login 
+</h1>
+<br/>
+
+<form method=POST action="{% url 'login_user' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      
+      <input type="text" class="form-control" name = "username" placeholder="Please enter yout username!">
+    </div>
+    <div class="mb-3">
+      <input type="password" class="form-control" name = "password" placeholder="Enter your password here!!">
+    </div>
+    <small><a class="nav-link float-end" href="{% url 'register' %}">New User? Click here</a></small>
+
+    <br/>
+    <button type="submit" class="btn btn-outline-dark">Submit</button>
+    
+  </form>
+
+</div></div>
+
+{% endif %}
+
+{% endblock %}
